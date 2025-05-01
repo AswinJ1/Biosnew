@@ -1,4 +1,4 @@
-const Alumni = [
+const alumni = [
     {
         "campus": "Amritapuri",
         "username": "Abhishek",
@@ -906,4 +906,4 @@ const Alumni = [
     },
 ]
 
-export default Alumni;
+export default alumni;

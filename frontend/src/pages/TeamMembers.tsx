@@ -5,7 +5,7 @@ import MatrixRain from "@/components/MatrixRain";
 import ThreeDCube from "@/components/ThreeDCube";
 
 // Import member data from files
-import alumni from "@/components/data/members/Alumini";
+import alumni from "@/components/data/members/alumni";
 import students from "@/components/data/members/students";
 import advisors from "@/components/data/members/advisors";
 import staff from "@/components/data/members/staff";
@@ -37,7 +37,7 @@ const formatMember = (member, type) => {
       description = member.description || 
         `Industry advisor from ${member.affiliation}.\nRole: Providing industry perspectives\nExpertise: Security best practices\nAffiliation: ${member.affiliation}`;
       break;
-    case 'Alumni':
+    case 'alumni':
       id = member.username || `alumni-${Math.random().toString(36).substring(2, 9)}`;
       name = `${member.firstname} ${member.lastname}`;
       title = `Alumni - ${member.category} (${member.batch})`;
