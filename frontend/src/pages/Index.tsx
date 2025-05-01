@@ -11,16 +11,16 @@ import MatrixRain from '@/components/MatrixRain';
 import ThreeDCube from '@/components/ThreeDCube';
 
 const Index: React.FC = () => {
-  useEffect(() => {
-    // This effect creates the scan line animation
-    const scanLine = document.createElement('div');
-    scanLine.className = 'scan-line';
-    document.body.appendChild(scanLine);
+  // useEffect(() => {
+  //   // This effect creates the scan line animation
+  //   const scanLine = document.createElement('div');
+  //   scanLine.className = 'scan-line';
+  //   document.body.appendChild(scanLine);
 
-    return () => {
-      document.body.removeChild(scanLine);
-    };
-  }, []);
+  //   return () => {
+  //     document.body.removeChild(scanLine);
+  //   };
+  // }, []);
 
   return (
     <motion.main 

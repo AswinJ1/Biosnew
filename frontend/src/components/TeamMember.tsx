@@ -42,7 +42,7 @@ const TeamMember = ({
         )}>›</span>
         <span className="font-medium text-lg font-mono">{member.name}</span>
       </div>
-      <div className="font-mono text-xs text-[#00ff00]/60 pl-5">
+      <div className="font-mono text-xs text-[white]/60 pl-5">
         {member.title}
       </div>
       

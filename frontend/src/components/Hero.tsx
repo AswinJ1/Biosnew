@@ -68,7 +68,7 @@ const Hero: React.FC = () => {
   return (
     <section className="relative min-h-screen flex items-center pt-32 pb-16 overflow-hidden">
       {/* Background elements */}
-      <div ref={floatingIconsRef} className="absolute inset-0 overflow-hidden -z-10">
+      {/* <div ref={floatingIconsRef} className="absolute inset-0 overflow-hidden -z-10">
         <div className="floating-icon absolute top-[20%] right-[15%] text-white/5 animate-float">
           <ShieldCheck size={240} />
         </div>
@@ -76,12 +76,12 @@ const Hero: React.FC = () => {
           <Cpu size={200} />
         </div>
         <div className="floating-icon absolute top-[60%] right-[25%] text-white/5 animate-float" style={{animationDelay: '-4s'}}>
-          <Lock size={160} />
+          < size={160} />
         </div>
         <div className="floating-icon absolute top-[10%] left-[25%] text-white/5 animate-float" style={{animationDelay: '-1s'}}>
           <CircuitBoard size={180} />
         </div>
-      </div>
+      </div> */}
 
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-4xl mx-auto">

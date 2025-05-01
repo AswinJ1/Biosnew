@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import TeamMember from "../components/TeamMember";
-import { Search, ChevronRight } from "lucide-react";
+import { Search, ChevronRight, Terminal } from "lucide-react";
 import MatrixRain from "@/components/MatrixRain";
 import ThreeDCube from "@/components/ThreeDCube";
 
@@ -111,7 +111,8 @@ const TeamMembers = () => {
   const [typingComplete, setTypingComplete] = useState(false);
   
   const playClickSound = () => {
-    const audio = new Audio("/mouse_over.mp3");
+    const audio = new Audio("/sounds/click.mp3");
+    audio.volume = 0.5; // Set volume to 50%
     audio.play();
   };
 
@@ -292,7 +293,7 @@ const TeamMembers = () => {
         <div className="container mx-auto p-4">
           <div className="grid grid-cols-1 md:grid-cols-[280px,1fr,1fr] gap-4">
             {/* Left sidebar */}
-            <div className="bg-[#111111] rounded border border-[#00ff0033] p-4">
+            <div className="bg-[black] rounded border border-[#00ff0033] p-4">
               {/* Search bar */}
               <div className="relative mb-6">
                 <input 
@@ -357,15 +358,17 @@ const TeamMembers = () => {
             </div>
 
             {/* Middle section - Team Members */}
-            <div className="bg-[#111111] rounded border border-[#00ff0033] flex flex-col">
-            
+            <div className="bg-[black] rounded border border-[#00ff0033] flex flex-col">
               <div className="p-4 border-b border-[#00ff0033]">
-                <h2 className="text-xl font-bold">
+              <div className="inline-flex items-center px-3 py-1 mb-4 text-xs font-medium text-cyber-green bg-cyber-green/10 ">
+              <span className="mr-2 h-1.5 w-1.5 rounded-full bg-cyber-green animate-pulse"></span>
+                <p className="text-xl text-green-600 font-bold typing-animation ">
                   {selectedCampus ? `${selectedCampus} Members` : 
                    selectedCategory ? `${selectedCategory}` :
                    selectedTeam ? `${selectedTeam} Members` : "All Members"}
                   {searchQuery && ` - Search results for "${searchQuery}"`}
-                </h2>
+                </p>
+                </div>
               </div>
               <ScrollArea className="h-[60vh]">
                 <div className="divide-y divide-[#00ff0033]">
@@ -390,31 +393,27 @@ const TeamMembers = () => {
             </div>
 
             {/* Right section - Terminal */}
-            <div className="bg-[#111111] rounded border border-[#00ff0033] flex flex-col">
+            <div className="bg-black rounded border border-[#00ff0033] flex flex-col">
               <div className="p-3 border-b border-[#00ff0033] flex items-center">
-                <div className="flex space-x-2 mr-4">
-                  <div className="w-3 h-3 rounded-full bg-red-500"></div>
-                  <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
-                  <div className="w-3 h-3 rounded-full bg-green-500"></div>
-                </div>
-                <h3 className="text-sm">{currentMember ? `terminal@${currentMember.name.toLowerCase().replace(" ", "-")}` : "terminal@system"}</h3>
+                            
+                <h3 className="text-sm text-white">{currentMember ? `team_bi0s.exe@${currentMember.name.toLowerCase().replace(" ", "-")}` : "team_bi0s.exe"}</h3>
               </div>
               <div 
                 ref={terminalRef}
-                className="p-4 flex-1 overflow-y-auto bg-[#0a0a0a] font-mono text-sm"
+                className="p-4 flex-1 overflow-y-auto bg-black font-mono text-sm"
               >
                 {currentMember ? (
                   <>
-                    <div className="text-[#00ff00]">&gt; User profile data</div>
-                    <div className="text-[#00ff00]/80 whitespace-pre-line pl-2 pt-2">
+                    <div className="text-[white]"><span className="text-green-600">$</span>  User profile data</div>
+                    <div className="text-[white]/80 whitespace-pre-line pl-2 pt-2">
                       {displayedText}
                       {!typingComplete && <span className="animate-pulse">_</span>}
                     </div>
                   </>
                 ) : (
-                  <div className="text-[#00ff00]/60">
-                    &gt; No user selected<br/>
-                    &gt; Hover over or click on a team member to view details<span className="animate-pulse">_</span>
+                  <div className="text-[white]/60">
+                    <span className="text-green-600">$</span> No user selected<br/>
+                    <span className="text-green-600">$</span> Hover over or click on a team member to view details<span className="animate-pulse">_</span>
                   </div>
                 )}
               </div>

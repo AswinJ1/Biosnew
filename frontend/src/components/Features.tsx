@@ -46,7 +46,7 @@ const whatWeDo = [
   }
 ];
 const playSound = () => {
-  const sound = new Audio("/sounds/big_door.mp3");
+  const sound = new Audio("/sounds/clickaccordion.mp3");
   sound.play().catch(error => console.error("Audio playback error:", error));
 };
 
@@ -63,7 +63,7 @@ const FeatureCard: React.FC<FeatureCardProps> = ({ icon, title, description, del
   return (
     <div 
       className="glass-card p-6 hover-lift"
-      style={{ animationDelay: `${delay * 0.1}s` }}
+      style={{ animationDelay: `${delay * 0}s` }}
     >
       <div className="h-12 w-12 rounded-lg bg-cyber-blue/10 text-cyber-blue flex items-center justify-center mb-4">
         {icon}
