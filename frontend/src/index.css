@@ -1,0 +1,393 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;700&family=Orbitron:wght@400;500;600;700&display=swap');
+
+@layer base {
+  :root {
+    --background: 150 50% 2%;
+    --foreground: 150 100% 90%;
+
+    --card: 150 50% 5%;
+    --card-foreground: 150 100% 95%;
+
+    --popover: 150 50% 3%;
+    --popover-foreground: 150 100% 98%;
+
+    --primary: 150 100% 50%;
+    --primary-foreground: 150 50% 10%;
+
+    --secondary: 150 70% 15%;
+    --secondary-foreground: 150 100% 98%;
+
+    --muted: 150 50% 20%;
+    --muted-foreground: 150 60% 70%;
+
+    --accent: 150 100% 60%;
+    --accent-foreground: 150 50% 10%;
+
+    --destructive: 0 100% 50%;
+    --destructive-foreground: 150 100% 98%;
+
+    --border: 150 50% 20%;
+    --input: 150 50% 15%;
+    --ring: 150 100% 50%;
+
+    --radius: 0.25rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-mono antialiased;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-image: 
+      radial-gradient(circle at 10% 20%, rgba(0, 255, 200, 0.03) 0%, transparent 20%),
+      radial-gradient(circle at 90% 80%, rgba(0, 200, 255, 0.03) 0%, transparent 20%);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-orbitron font-medium tracking-wider text-accent;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-black/30;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-primary/50 rounded-none transition-colors;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-primary;
+}
+
+/* Page transitions */
+.page-enter {
+  opacity: 0;
+  transform: translateY(0);
+}
+
+.page-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 200ms, transform 200ms;
+}
+
+.page-exit {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.page-exit-active {
+  opacity: 0;
+  transform: translateY(0);
+  transition: opacity 150ms, transform 150ms;
+}
+
+/* Glass morphism utility classes */
+@layer components {
+  .glass {
+    @apply bg-black/70 backdrop-blur-md border border-primary/10;
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.1);
+  }
+  
+  .glass-card {
+    @apply glass shadow-md hover:shadow-lg border border-primary/10;
+  }
+
+  .hover-lift {
+    @apply transition-all duration-300 hover:-translate-y-1 hover:shadow-lg;
+  }
+  
+  .terminal-text {
+    @apply font-mono text-foreground;
+  }
+  
+  .cyber-line {
+    @apply border-t border-primary/20;
+  }
+
+  .cyber-grid {
+    background-image: 
+      linear-gradient(rgba(0, 255, 255, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 255, 255, 0.05) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+
+  .cyber-noise {
+    position: relative;
+  }
+
+  .cyber-noise::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.08'/%3E%3C/svg%3E");
+    opacity: 0.08;
+    z-index: -1;
+  }
+
+  .terminal-window {
+    @apply rounded-none bg-black/90 border border-primary/30 shadow-lg overflow-hidden;
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.1), inset 0 0 10px rgba(0, 0, 0, 0.5);
+  }
+
+  .terminal-header {
+    @apply bg-black border-b border-primary/20 px-4 py-2 flex items-center;
+  }
+
+  .terminal-body {
+    @apply p-4 font-mono text-foreground text-sm;
+  }
+
+  .typing-animation {
+    overflow: hidden;
+    white-space: nowrap;
+    animation: typing 3.5s steps(40, end);
+  }
+
+  @keyframes typing {
+    from { width: 0 }
+    to { width: 100% }
+  }
+
+  .blink {
+    animation: blink-animation 1s steps(2, start) infinite;
+  }
+
+  @keyframes blink-animation {
+    to { visibility: hidden; }
+  }
+
+  .scan-line {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: rgba(0, 255, 255, 0.2);
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+    animation: scan 4s linear infinite;
+    z-index: 50;
+    pointer-events: none;
+  }
+
+  @keyframes scan {
+    0% { top: 0; }
+    100% { top: 100%; }
+  }
+  
+  /* New animations for the marquee effect */
+  .animate-marquee {
+    animation: marquee 30s linear infinite;
+  }
+  
+  @keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  /* Glitch effect */
+  .glitch {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .glitch::before,
+  .glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--background);
+  }
+
+  .glitch::before {
+    left: 2px;
+    text-shadow: -1px 0 rgba(0, 255, 255, 0.7);
+    clip: rect(44px, 450px, 56px, 0);
+    animation: glitch-anim 5s infinite linear alternate-reverse;
+  }
+
+  .glitch::after {
+    left: -2px;
+    text-shadow: 1px 0 rgba(255, 0, 100, 0.7);
+    clip: rect(44px, 450px, 56px, 0);
+    animation: glitch-anim2 5s infinite linear alternate-reverse;
+  }
+
+  @keyframes glitch-anim {
+    0% { clip: rect(31px, 9999px, 94px, 0); }
+    10% { clip: rect(112px, 9999px, 76px, 0); }
+    20% { clip: rect(85px, 9999px, 77px, 0); }
+    30% { clip: rect(27px, 9999px, 26px, 0); }
+    40% { clip: rect(15px, 9999px, 78px, 0); }
+    50% { clip: rect(40px, 9999px, 72px, 0); }
+    60% { clip: rect(15px, 9999px, 13px, 0); }
+    70% { clip: rect(103px, 9999px, 91px, 0); }
+    80% { clip: rect(87px, 9999px, 21px, 0); }
+    90% { clip: rect(57px, 9999px, 91px, 0); }
+    100% { clip: rect(7px, 9999px, 92px, 0); }
+  }
+
+  @keyframes glitch-anim2 {
+    0% { clip: rect(18px, 9999px, 91px, 0); }
+    10% { clip: rect(93px, 9999px, 100px, 0); }
+    20% { clip: rect(61px, 9999px, 73px, 0); }
+    30% { clip: rect(48px, 9999px, 10px, 0); }
+    40% { clip: rect(84px, 9999px, 99px, 0); }
+    50% { clip: rect(83px, 9999px, 35px, 0); }
+    60% { clip: rect(9px, 9999px, 66px, 0); }
+    70% { clip: rect(76px, 9999px, 93px, 0); }
+    80% { clip: rect(55px, 9999px, 57px, 0); }
+    90% { clip: rect(63px, 9999px, 37px, 0); }
+    100% { clip: rect(7px, 9999px, 34px, 0); }
+  }
+
+  /* Neon effect */
+  .neon-text {
+    text-shadow: 0 0 5px rgba(0, 255, 255, 0.3),
+                 0 0 10px rgba(0, 255, 255, 0.3),
+                 0 0 15px rgba(0, 255, 255, 0.3),
+                 0 0 20px rgba(0, 255, 255, 0.3);
+  }
+
+  .neon-box {
+    box-shadow: 0 0 5px rgba(0, 255, 255, 0.5),
+                0 0 10px rgba(0, 255, 255, 0.3),
+                0 0 15px rgba(0, 255, 255, 0.1);
+  }
+
+  /* 3D effects */
+  .perspective-container {
+    perspective: 1000px;
+  }
+
+  .rotate3d {
+    transform-style: preserve-3d;
+    transition: transform 0.5s;
+  }
+
+  .rotate3d:hover {
+    transform: rotateY(10deg) rotateX(5deg);
+  }
+
+  /* Cyberpunk UI elements */
+  .cyber-button {
+    @apply px-4 py-2 border-l-2 border-t-2 border-r-2 border-b-2 border-primary/50 bg-black/50 text-primary relative overflow-hidden;
+    transition: all 0.2s;
+  }
+  
+  .cyber-button:before {
+    content: '';
+    @apply absolute bottom-0 left-0 w-full h-1 bg-primary;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.25s;
+  }
+  
+  .cyber-button:hover:before {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+  
+  .cyber-button:hover {
+    @apply text-white border-primary;
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+  }
+  .terminal-input {
+    @apply bg-transparent outline-none caret-cyber-green text-white w-full;
+  }
+
+  .terminal-input::placeholder {
+    @apply text-white/30;
+  }
+
+  .terminal-history {
+    @apply mb-4 space-y-2;
+  }
+
+  .terminal-prompt {
+    @apply flex items-start;
+  }
+
+  .terminal-prompt-symbol {
+    @apply text-cyber-green mr-2;
+  }
+
+  .terminal-line {
+    @apply flex items-start;
+  }
+
+  .terminal-command {
+    @apply text-white;
+  }
+
+  .terminal-output {
+    @apply text-white/90 pl-4 mt-1;
+  }
+
+  .terminal-section {
+    @apply mb-4;
+  }
+}
+
+@keyframes glitch {
+  0% {
+    transform: translate(0);
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+  20% {
+    clip-path: polygon(0 15%, 100% 15%, 100% 85%, 0 85%);
+  }
+  30% {
+    clip-path: polygon(0 10%, 100% 10%, 100% 90%, 0 90%);
+  }
+  40% {
+    transform: translate(-2px, 2px);
+  }
+  50% {
+    transform: translate(2px, -2px);
+  }
+  60% {
+    transform: translate(0);
+    clip-path: polygon(0 5%, 100% 5%, 100% 95%, 0 95%);
+  }
+  70% {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+  80% {
+    transform: translate(-2px, 2px);
+  }
+  90% {
+    transform: translate(2px, -2px);
+  }
+  100% {
+    transform: translate(0);
+  }
+}
+
+.glitch-effect {
+  animation: glitch 2s infinite;
+}
+

@@ -1,0 +1,7 @@
+
+This directory contains sound effects for UI interactions.
+Required sounds:
+- click.mp3: Button click sound
+- hover.mp3: Hover sound
+- success.mp3: Success action sound
+- error.mp3: Error action sound
