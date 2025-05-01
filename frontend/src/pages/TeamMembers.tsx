@@ -37,7 +37,7 @@ const formatMember = (member, type) => {
       description = member.description || 
         `Industry advisor from ${member.affiliation}.\nRole: Providing industry perspectives\nExpertise: Security best practices\nAffiliation: ${member.affiliation}`;
       break;
-    case 'alumni':
+    case 'Alumni':
       id = member.username || `alumni-${Math.random().toString(36).substring(2, 9)}`;
       name = `${member.firstname} ${member.lastname}`;
       title = `Alumni - ${member.category} (${member.batch})`;
