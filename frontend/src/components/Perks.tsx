@@ -22,12 +22,16 @@ const Perks: React.FC = () => {
         <div className="text-center max-w-3xl mx-auto mb-16 animate-fade-up">
         <div className="inline-flex items-center px-3 py-1 mb-4 text-xs font-medium text-cyber-green bg-cyber-green/10 rounded-full">
             <span className="mr-2 h-1.5 w-1.5 rounded-full bg-cyber-green animate-pulse"></span>
-            <span className="typing-animation blink">Our Alumni Work At</span>
+            <span className="typing-animation blink text-lg">Our Alumni Work At</span>
           </div>
           <p className="text-lg text-white/80 mb-8 max-w-2xl mx-auto">
-            <span className="text-cyber-blue font-semibold">NASSCOM predicts over a million job vacancies in cybersecurity</span> - 
-            one of the hottest fields in computer science today.
+          Our alumni are shaping the future of cybersecurity across the globe. From tech giants to cutting-edge security firms, their success reflects the quality of training and experience at bi0s.
+          <br/><br />
+            {/* <span className="text-cyber-blue font-semibold">NASSCOM predicts over a million job vacancies in cybersecurity</span> - 
+            one of the hottest fields in computer science today. */}
           </p>
+           <span className="text-cyber-blue font-semibold"> You’ll find bi0s alumni at:</span>
+         
         </div>
 
         <div className="mt-16 overflow-hidden">

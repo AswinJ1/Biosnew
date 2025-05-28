@@ -391,3 +391,60 @@
   animation: glitch 2s infinite;
 }
 
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  .carousel-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+  }
+
+  .scroll-section {
+    height: 500vh;
+    position: relative;
+    z-index: 1;
+  }
+
+  .content-section {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    transition: opacity 0.5s ease-out;
+  }
+  
+  .content-fade {
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+
+  .content-section.active .content-fade {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+.content-section:not(.active) .content-fade {
+  opacity: 0;
+  transform: translateY(20px);
+  pointer-events: none;
+}
+.glass-effect {
+  background: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px 0 rgba(34, 211, 238, 0.1);
+}
+
+.glass-effect:hover {
+  background: rgba(34, 211, 238, 0.05);
+  border-color: rgba(34, 211, 238, 0.3);
+  box-shadow: 0 8px 32px 0 rgba(34, 211, 238, 0.2);
+}

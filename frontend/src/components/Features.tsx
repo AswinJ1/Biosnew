@@ -13,37 +13,37 @@ import {
 
 const whatWeDo = [
   {
-    title: "Learning & Researching",
-    content: "Our members continuously learn and conduct research on various cybersecurity fields including web security, binary exploitation, reverse engineering, cryptography and more."
+    title: "Cybersecurity Training ",
+    content: "Hands-on mentorship to build real-world ethical hacking skills."
   },
   {
-    title: "Participating & Organizing CTFs",
-    content: "We participate in Capture The Flag competitions across the world and organize our own contests like InCTF to promote cybersecurity skills in India."
+    title: "CTF Competitions",
+    content: "Competing globally in Capture The Flag contests with top rankings."
   },
   {
-    title: "Workshops & Training",
-    content: "We regularly organize workshops and training programs to build cybersecurity skills and awareness among students and professionals."
+    title: "Security Research",
+    content: "Original research in hardware, reverse engineering, and application security."
   },
   {
-    title: "Open Source Contributions",
-    content: "Our members actively contribute to open-source security tools and develop new tools to enhance the security community."
-  },
-  {
-    title: "Hardware Security",
-    content: "We design and test hardware security modules, focusing on embedded systems, firmware security, and side-channel analysis."
-  },
-  {
-    title: "International Collaborations",
-    content: "We collaborate with international researchers on cybersecurity projects, expanding our knowledge and global impact."
-  },
-  {
-    title: "Penetration Testing",
-    content: "We conduct penetration testing, participate in bug-bounty programs, and submit CVEs to help secure digital infrastructure."
-  },
-  {
-    title: "Security Consultancy",
-    content: "We provide cybersecurity consultancy services to organizations, helping them secure their systems and data."
+    title: "Technical Development",
+    content: "Building secure infrastructure and custom internal tools."
   }
+  // {
+  //   title: "Community Outreach",
+  //   content: "Hosting workshops, talks, and InCTF to spread cybersecurity awareness."
+  // },
+  // {
+  //   title: "International Collaborations",
+  //   content: "We collaborate with international researchers on cybersecurity projects, expanding our knowledge and global impact."
+  // },
+  // {
+  //   title: "Penetration Testing",
+  //   content: "We conduct penetration testing, participate in bug-bounty programs, and submit CVEs to help secure digital infrastructure."
+  // },
+  // {
+  //   title: "Security Consultancy",
+  //   content: "We provide cybersecurity consultancy services to organizations, helping them secure their systems and data."
+  // }
 ];
 const playSound = () => {
   const sound = new Audio("/sounds/clickaccordion.mp3");
@@ -117,7 +117,7 @@ const Features: React.FC = () => {
           <div className="text-center mb-10">
           <div className="inline-flex items-center px-3 py-1 mb-4 text-xs font-medium text-cyber-green bg-cyber-green/10 rounded-full">
             <span className="mr-2 h-1.5 w-1.5 rounded-full bg-cyber-green animate-pulse"></span>
-            <span className="typing-animation blink">What we do ?</span>
+            <span className="typing-animation blink text-lg">What we do ?</span>
           </div>
           </div>
 

@@ -1,12 +1,189 @@
-
 import React from 'react';
-import { Shield, Users, Lightbulb, GraduationCap, Zap, Award, Code, Cpu } from 'lucide-react';
+import { Shield, Users, Lightbulb, GraduationCap, Zap, Award, Code, Cpu, Trophy } from 'lucide-react';
 import Footer from '@/components/Footer';
 import { motion } from 'framer-motion';
 import MatrixRain from '@/components/MatrixRain';
 import ThreeDCube from '@/components/ThreeDCube';
+import Testimonials from '@/components/Testimonials';
+import WhoWeAre from '@/components/WhoWeAre';
+import {  Globe } from 'lucide-react';
+import { Card, CardContent } from "@/components/ui/card";
+import { gsap } from 'gsap';
+import { useEffect } from 'react';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import Team from '@/components/AreaFocus';
+import AreaFocus from '@/components/AreaFocus';
+
+
+gsap.registerPlugin(ScrollTrigger);
+
+interface FeatureCardProps {
+  icon: React.ReactNode;
+  title: string;
+  description: string | string[];
+  delay: number;
+}
+
+const FeatureCard: React.FC<FeatureCardProps> = ({ icon, title, description, delay }) => {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5, delay: delay * 0.2 }}
+      className="cyber-card p-1"
+    >
+      <Card className="bg-transparent border-none overflow-hidden relative group">
+        <CardContent className="p-6 z-10 relative">
+          {/* Simplified icon without animation */}
+          <div className="h-12 w-12 rounded-lg bg-cyber-blue/10 text-cyber-blue flex items-center justify-center mb-4">
+            {icon}
+          </div>
+          
+          <h3 className="text-xl font-semibold mb-4 text-cyber-blue">
+            {title}
+          </h3>
+
+          {/* Rest of the content */}
+          {Array.isArray(description) ? (
+            <ul className="space-y-4">
+              {description.map((item, index) => (
+                <motion.li 
+                  key={index}
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ delay: index * 0.1 }}
+                  className="text-foreground/70 flex items-start gap-2"
+                >
+                  <span className="text-cyber-blue mt-1">›</span>
+                  <span>{item}</span>
+                </motion.li>
+              ))}
+            </ul>
+          ) : (
+            <p className="text-foreground/70">{description}</p>
+          )}
+        </CardContent>
+      </Card>
+    </motion.div>
+  );
+};
+
+// Update the "What Makes Us Different" section
+const differenceItems = [
+  {
+    icon: <Users className="h-5 w-5" />,
+    title: "Student-Driven Excellence",
+    desc: "Operated entirely by students with expert mentorship"
+  },
+  {
+    icon: <Globe className="h-5 w-5" />,
+    title: "Global Recognition",
+    desc: "Consistent top rankings in international CTFs"
+  },
+  {
+    icon: <Lightbulb className="h-5 w-5" />,
+    title: "Research-First Approach",
+    desc: "In-depth research across multiple cybersecurity domains"
+  },
+  {
+    icon: <GraduationCap className="h-5 w-5" />,
+    title: "Community-Oriented",
+    desc: "Active in outreach, education, and open collaboration"
+  }
+].map((item, index) => (
+  <motion.div 
+    key={index}
+    initial={{ opacity: 0, y: 20 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    transition={{ delay: index * 0.1 }}
+    viewport={{ once: true }}
+    className="p-4 rounded-lg bg-cyber-blue/5 hover:bg-cyber-blue/10 
+      transition-colors duration-300 flex items-start gap-3"
+    data-animate="difference-item"
+  >
+    <div className="text-cyber-blue">
+      {item.icon}
+    </div>
+    <div>
+      <h4 className="text-sm font-semibold text-cyber-blue mb-2">{item.title}</h4>
+      <p className="text-sm text-foreground/70">{item.desc}</p>
+    </div>
+  </motion.div>
+));
 
 const About: React.FC = () => {
+  useEffect(() => {
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: ".vision-card",
+        start: "top 70%",
+        end: "bottom 20%",
+        toggleActions: "play none none reverse"
+      }
+    });
+
+    // Animate Vision card first
+    tl.from(".vision-card", {
+      opacity: 0,
+      x: -50,
+      duration: 0.6,
+      ease: "power2.out"
+    });
+
+    // Then animate Mission card
+    tl.from(".mission-card", {
+      opacity: 0,
+      x: 50,
+      duration: 0.6,
+      ease: "power2.out"
+    }, "-=0.3");
+
+    // Then animate Difference card
+    tl.from(".difference-card", {
+      opacity: 0,
+      y: 30,
+      duration: 0.6,
+      ease: "power2.out"
+    }, "-=0.3");
+
+    // Finally animate difference items
+    tl.from("[data-animate='difference-item']", {
+      opacity: 0,
+      y: 20,
+      duration: 0.4,
+      stagger: 0.1,
+      ease: "power2.out"
+    });
+
+    // Recognition section animations with better trigger settings
+    const recognitionTl = gsap.timeline({
+      scrollTrigger: {
+        trigger: ".recognition-section",
+        start: "top 80%",
+        end: "bottom 20%",
+        toggleActions: "play none none none", // Changed to prevent reverting
+        once: true // Ensures animation plays only once
+      }
+    });
+
+    recognitionTl
+      .from(".recognition-title", {
+        opacity: 0,
+        y: 30,
+        duration: 0.8,
+        ease: "power2.out"
+      })
+      .from(".recognition-card", {
+        opacity: 0,
+        y: 50,
+        duration: 0.6,
+        stagger: 0.2,
+        ease: "power2.out"
+      }, "-=0.4");
+
+  }, []);
+
   return (
     <motion.main className="min-h-screen cyber-noise pt-32" >
        <div className="cyber-grid absolute inset-0 pointer-events-none opacity-50"></div>
@@ -24,8 +201,8 @@ const About: React.FC = () => {
       
      
       
-      {/* Hero section */}
-      <section className="relative py-20">
+     
+      {/* <section className="relative py-20">
         <div className="absolute inset-0 bg-gradient-to-b from-cyber-blue/5 to-transparent dark:from-cyber-dark/50 -z-10"></div>
         
         <div className="container mx-auto px-4">
@@ -42,10 +219,10 @@ const About: React.FC = () => {
             </p>
           </div>
         </div>
-      </section>
+      </section> */}
       
       {/* History section */}
-      <section className="py-16">
+      {/* <section className="py-16">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto animate-fade-up">
             <div className="glass-card p-8 border-white/20 hover:border-cyber-blue/30 transition-all duration-300 hover-lift">
@@ -57,7 +234,7 @@ const About: React.FC = () => {
               </div>
               
               <p className="text-foreground/80 mb-4">
-                The team was formally launched as a CTF team in 2007 under the mentorship of Vipin Pavithran, a faculty at Amrita's Centre for Cyber Security.
+              Team bi0s is India’s first and most accomplished student-run cybersecurity research group.
               </p>
               
               <p className="text-foreground/80 mb-4">
@@ -70,10 +247,10 @@ const About: React.FC = () => {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
       
       {/* How we function section */}
-      <section className="py-16 bg-cyber-blue/5">
+      {/* <section className="py-16 bg-cyber-blue/5">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto">
             <div className="text-center mb-12 animate-fade-up">
@@ -105,10 +282,10 @@ const About: React.FC = () => {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
       
       {/* What we do section */}
-      <section className="py-16">
+      {/* <section className="py-16">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto">
             <div className="text-center mb-12 animate-fade-up">
@@ -184,10 +361,10 @@ const About: React.FC = () => {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Teams section */}
-      <section className="py-16 bg-black">
+      {/* <section className="py-16 bg-black">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto">
             <div className="text-center mb-12 animate-fade-up">
@@ -243,7 +420,137 @@ const About: React.FC = () => {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
+      
+     
+      <WhoWeAre/>
+         <div className="mx-auto px-4 py-16">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-7xl mx-auto">
+            {/* Vision Card - Takes full width in first row */}
+            <div className="vision-card md:col-span-2">
+              <FeatureCard
+                icon={<Shield className="h-6 w-6" />}
+                title="Our Vision"
+                description="To build a generation of ethical hackers and cybersecurity professionals who solve real-world problems and defend the digital future."
+                delay={0}
+              />
+            </div>
+
+            {/* Mission Card - Takes 1/3 width */}
+            <div className="mission-card row-span-2">
+              <FeatureCard
+                icon={<Code className="h-6 w-6" />}
+                title="Our Mission"
+                description={[
+                  "Train and mentor students in advanced cybersecurity skills",
+                  "Conduct original research in offensive and defensive security",
+                  "Compete and excel in global cybersecurity competitions",
+                  "Share knowledge with the wider community"
+                ]}
+                delay={1}
+              />
+            </div>
+
+            {/* What Makes Us Different Card - Takes 2/3 width below Vision */}
+            <div className="difference-card md:col-span-2" data-animate="difference-card">
+              <Card className="glass-card border-white/20 bg-black/40 backdrop-blur-sm overflow-hidden 
+                hover:border-cyber-blue/40 transition-all duration-500 hover-lift relative group h-full">
+                <CardContent className="p-6 z-10 relative">
+                  <div className="h-12 w-12 rounded-lg bg-cyber-blue/10 text-cyber-blue flex items-center justify-center mb-4 group-hover:animate-pulse">
+                    <Award className="h-6 w-6" />
+                  </div>
+                  <h3 className="text-xl font-semibold mb-4">What Makes Us Different</h3>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    {[
+                      {
+                        title: "Student-Driven Excellence",
+                        desc: "Operated entirely by students with expert mentorship"
+                      },
+                      {
+                        title: "Global Recognition",
+                        desc: "Consistent top rankings in international CTFs"
+                      },
+                      {
+                        title: "Research-First Approach",
+                        desc: "In-depth research across multiple cybersecurity domains"
+                      },
+                      {
+                        title: "Community-Oriented",
+                        desc: "Active in outreach, education, and open collaboration"
+                      }
+                    ].map((item, index) => (
+                      <div 
+                        key={index}
+                        className="p-4 rounded-lg bg-cyber-blue/5 hover:bg-cyber-blue/10 transition-colors duration-300"
+                        data-animate="difference-item"
+                      >
+                        <h4 className="text-sm font-semibold text-cyber-blue mb-2">{item.title}</h4>
+                        <p className="text-sm text-foreground/70">{item.desc}</p>
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+        </div>
+        <AreaFocus/>
+
+
+<section className="recognition-section py-16">
+  <div className="container mx-auto px-4">
+    <div className="max-w-7xl mx-auto">
+      <div className="text-center mb-12">
+        <div className="inline-flex items-center px-3 py-1 mb-4 text-xs font-medium text-cyber-blue bg-cyber-blue/10 rounded-full">
+          <span className="mr-2 h-1.5 w-1.5 rounded-full bg-cyber-blue animate-pulse"></span>
+          <span>our achievements</span>
+        </div>
+        <h2 className="text-3xl font-bold mb-4">Recognition & Impact</h2>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {[
+          {
+            icon: <Trophy className="h-6 w-6" />,
+            title: "Global Rankings",
+            desc: "Ranked consistently among top global CTF teams",
+            delay: 0
+          },
+          {
+            icon: <Users className="h-6 w-6" />,
+            title: "Alumni Success",
+            desc: "Alumni working at Google, Synack, Zscaler, Citrix, NCC Group, and more",
+            delay: 0.2
+          },
+          {
+            icon: <Award className="h-6 w-6" />,
+            title: "Flagship Events",
+            desc: "Hosted flagship events like InCTF, India's first CTF for high school and college students",
+            delay: 0.4
+          }
+        ].map((item, index) => (
+          <div 
+            key={index}
+            className="glass-card p-6 border-white/20 hover:border-cyber-blue/30 transition-all duration-300"
+          >
+            <div className="flex items-start gap-4">
+              <div className="h-12 w-12 rounded-lg bg-cyber-blue/10 text-cyber-blue flex items-center justify-center flex-shrink-0">
+                {item.icon}
+              </div>
+              <div>
+                <h3 className="text-lg font-semibold mb-2 text-cyber-blue">{item.title}</h3>
+                <p className="text-foreground/70">{item.desc}</p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+     
+        
+      <Testimonials/>
 
       <Footer />
     </motion.main>

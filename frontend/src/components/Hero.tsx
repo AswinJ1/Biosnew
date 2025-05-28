@@ -25,7 +25,7 @@ const StatCard: React.FC<{ icon: React.ReactNode; title: string; value: string; 
 const Hero: React.FC = () => {
   const floatingIconsRef = useRef<HTMLDivElement>(null);
   const [displayText, setDisplayText] = useState("");
-  const fullText = "We are a team of passionate college students and cybersecurity enthusiasts dedicated to learning, researching, and innovating in the field of information security.";
+  const fullText = "We are Team bi0s, a student-driven cybersecurity research group from Amrita Vishwa Vidyapeetham. We train the next generation of ethical hackers through hands-on learning, real-world challenges, and global competitions.";
   
   useEffect(() => {
     setDisplayText(""); // Reset before animation starts

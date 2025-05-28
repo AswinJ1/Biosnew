@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { Shield, Code, Cpu } from 'lucide-react';
+import { title } from 'process';
 
 interface TeamCardProps {
   title: string;
@@ -40,6 +41,16 @@ const teams = [
   {
     title: "bi0s Pentest",
     description: "The bi0s Pentest team actively research on how to detect and exploit flaws in various networks, cloud appliances and web-based systems. With the main focus on penetration testing and boot2root type CTFs, we actively participate in bug-bounty programs for a real-time bug-hunting experience.",
+    icon: <Code className="h-5 w-5" />
+  },
+  {
+    title: "bi0s Open Source",
+    description: "The bi0s Open Source team is dedicated to contributing to open-source security tools and collaborating on international cybersecurity research projects. The team has a strong focus on developing and maintaining open-source tools that benefit the cybersecurity community.",
+    icon: <Code className="h-5 w-5" />
+  },
+  {
+    title: "bi0s Web",
+    description: "The bi0s Web team specializes in web application security. The team focuses on identifying vulnerabilities in web applications and developing secure coding practices.",
     icon: <Code className="h-5 w-5" />
   }
 ];

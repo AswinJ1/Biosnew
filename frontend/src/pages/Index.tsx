@@ -9,6 +9,9 @@ import Perks from '@/components/Perks';
 import { motion } from 'framer-motion';
 import MatrixRain from '@/components/MatrixRain';
 import ThreeDCube from '@/components/ThreeDCube';
+import TeamSection from '@/components/TeamSection';
+import ScrollCarousel from '@/components/ScrollCarousel';
+import Team from '@/components/Team';
 
 const Index: React.FC = () => {
   // useEffect(() => {
@@ -47,9 +50,10 @@ const Index: React.FC = () => {
       <div className="relative z-10">
         <Hero />
         <WhoWeAre />
+        <Team/>
         <Features />
         <Perks />
-        <Testimonials />
+        <ScrollCarousel />
         <Footer />
       </div>
       
