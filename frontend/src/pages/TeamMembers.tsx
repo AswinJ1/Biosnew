@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import TeamMember from "../components/TeamMember";
-import { Search, ChevronRight, Terminal } from "lucide-react";
+import { Search, ChevronRight, Terminal, Twitch } from "lucide-react";
 import MatrixRain from "@/components/MatrixRain";
 import ThreeDCube from "@/components/ThreeDCube";
 
@@ -9,7 +9,9 @@ import alumni from "@/components/data/members/alumni";
 import students from "@/components/data/members/students";
 import advisors from "@/components/data/members/advisors";
 import staff from "@/components/data/members/staff";
+import founders from "@/components/data/members/Founder";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { link } from "fs";
 
 // Format member data for consistent use in the component
 const formatMember = (member, type) => {
@@ -36,6 +38,27 @@ const formatMember = (member, type) => {
       title = `Security Advisor (${member.affiliation})`;
       description = member.description || 
         `Industry advisor from ${member.affiliation}.\nRole: Providing industry perspectives\nExpertise: Security best practices\nAffiliation: ${member.affiliation}`;
+      break;
+    case 'founder':
+      id = `founder-${member.firstname.toLowerCase()}-${member.lastname.toLowerCase()}`;
+      name = `${member.firstname} ${member.lastname}`;
+      title = `Founder`;
+      description = `${member.description}\n\nConnect with ${member.firstname}:\nLinkedIn: ${member.linkedin}\nTwitter: ${member.twitter}\nEmail: ${member.email}`;
+      // Add social links to the returned object
+      return {
+        id,
+        name,
+        title,
+        description,
+        image: member.image,
+        originalData: member,
+        type,
+        social: {
+          linkedin: member.linkedin,
+          twitter: member.twitter,
+          email: member.email
+        }
+      };
       break;
     case 'alumni':
       id = member.username || `alumni-${Math.random().toString(36).substring(2, 9)}`;
@@ -65,12 +88,18 @@ const processedStudents = students.map(student => formatMember(student, 'student
 const processedStaff = staff.map(staffMember => formatMember(staffMember, 'staff'));
 const processedAdvisors = advisors.map(advisor => formatMember(advisor, 'advisor'));
 const processedAlumni = alumni.map(alumnus => formatMember(alumnus, 'alumni'));
-
+const processedFounder = founders.map(alumnus => formatMember(alumnus, 'founder'));
 // Campus list from student and staff data
 const campusSet = new Set([
   ...students.map(s => s.campus),
   ...staff.map(s => s.campus),
-    ...advisors.map(ad => ad.campus),
+  ...advisors.map(ad => ad.campus),
+  // Update founders campus mapping
+  ...founders.flatMap(founder => 
+    Object.entries(founder.campus)
+      .filter(([_, isPresent]) => isPresent)
+      .map(([campus]) => campus)
+  ),
   ...alumni.filter(a => a.campus).map(a => a.campus)
 ]);
 const campuses = Array.from(campusSet);
@@ -79,6 +108,7 @@ const campuses = Array.from(campusSet);
 const categories = [
   { name: "All Members", key: "all-members" },
   { name: "Team Advisors", key: "advisors" },
+  { name: "Founder", key: "founder" },
   { name: "Staff Mentors", key: "mentors" },
   { name: "Student Members", key: "students" },
   { name: "Alumni", key: "alumni" },
@@ -125,6 +155,9 @@ const TeamMembers = () => {
       members = [...members, ...processedAdvisors];
     }
     
+    if (selectedCategory === "Founder" || selectedCategory === null) {
+      members = [...members, ...processedFounder];
+    }
     if (selectedCategory === "Staff Mentors" || selectedCategory === null) {
       members = [...members, ...processedStaff];
     }
@@ -139,9 +172,12 @@ const TeamMembers = () => {
     
     // Apply campus filter
     if (selectedCampus && selectedCampus !== "All Campuses") {
-      members = members.filter(member => 
-        member.originalData.campus === selectedCampus
-      );
+      members = members.filter(member => {
+        if (member.type === 'founder') {
+          return member.originalData.campus[selectedCampus];
+        }
+        return member.originalData.campus === selectedCampus;
+      });
     }
     
     // Apply team filter
