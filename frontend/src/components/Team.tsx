@@ -95,7 +95,7 @@ const Team = () => {
           </div>
             <h1 className='iconstext pb-10 font-bold text-white text-4xl md:text-5xl'>Our Team</h1>
 
-            <div className='grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-y-16 md:gap-y-36 w-full max-w-7xl mx-auto place-items-center px-4'>
+            <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-y-16 md:gap-y-36 w-full max-w-7xl mx-auto place-items-center px-4'>
                 {cardItems.map((item) => (
                     <div className='icon-card w-48 h-48 md:w-64 md:h-64 ' key={item.title}>
                         <IconCard
